@@ -1,0 +1,17 @@
+# Distributed Mobile Money System - Python Dependencies
+
+# Core dependencies (all built-in to Python 3.8+)
+# No external packages required!
+
+# The system uses only Python standard library:
+# - socket (UDP networking)
+# - threading (concurrency)
+# - sqlite3 (database)
+# - json (serialization)
+# - hashlib (Merkle trees)
+# - time, os, sys (utilities)
+
+# Optional: For development/testing
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
