@@ -44,8 +44,8 @@ sudo ufw allow 5999/udp
 
 **Windows Firewall:**
 ```powershell
-New-NetFirewallRule -DisplayName "MoMo RPC" -Direction Inbound -Protocol UDP -LocalPort 6001-6010 -Action Allow
-New-NetFirewallRule -DisplayName "MoMo Discovery" -Direction Inbound -Protocol UDP -LocalPort 5999 -Action Allow
+New-NetFirewallRule -DisplayName "Mobile Money RPC" -Direction Inbound -Protocol UDP -LocalPort 6001-6010 -Action Allow
+New-NetFirewallRule -DisplayName "Mobile Money Discovery" -Direction Inbound -Protocol UDP -LocalPort 5999 -Action Allow
 ```
 
 **macOS:**
@@ -65,7 +65,7 @@ Create or edit `servers.json` with your actual server IP addresses:
   "servers": [
     {
       "id": 1,
-      "name": "MoMo-Server-1",
+      "name": "Server-1",
       "region": "Data Center A",
       "host": "192.168.1.100",
       "port": 6001,
@@ -74,7 +74,7 @@ Create or edit `servers.json` with your actual server IP addresses:
     },
     {
       "id": 2,
-      "name": "MoMo-Server-2",
+      "name": "Server-2",
       "region": "Data Center B",
       "host": "10.0.0.50",
       "port": 6001,
@@ -83,7 +83,7 @@ Create or edit `servers.json` with your actual server IP addresses:
     },
     {
       "id": 3,
-      "name": "MoMo-Server-3",
+      "name": "Server-3",
       "region": "Data Center C",
       "host": "172.16.0.25",
       "port": 6001,
@@ -105,15 +105,15 @@ Copy the entire project to each server machine:
 
 ```bash
 # On your development machine
-tar -czf momo-system.tar.gz *.py *.sql *.json *.md
+tar -czf mobile-money-system.tar.gz *.py *.sql *.json *.md
 
 # Copy to each server
-scp momo-system.tar.gz user@192.168.1.100:~/
-scp momo-system.tar.gz user@10.0.0.50:~/
-scp momo-system.tar.gz user@172.16.0.25:~/
+scp mobile-money-system.tar.gz user@192.168.1.100:~/
+scp mobile-money-system.tar.gz user@10.0.0.50:~/
+scp mobile-money-system.tar.gz user@172.16.0.25:~/
 
 # On each server, extract
-tar -xzf momo-system.tar.gz
+tar -xzf mobile-money-system.tar.gz
 ```
 
 ## Deployment Modes

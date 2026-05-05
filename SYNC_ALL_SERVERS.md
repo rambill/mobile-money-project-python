@@ -193,7 +193,7 @@ python server.py 5
   "servers": [
     {
       "id": 1,
-      "name": "MoMo-Kampala",
+      "name": "Kampala",
       "host": "10.29.42.224",
       "port": 6001,
       "rep_port": 6101,
@@ -201,7 +201,7 @@ python server.py 5
     },
     {
       "id": 2,
-      "name": "MoMo-Mbarara",
+      "name": "Mbarara",
       "host": "10.29.42.65",
       "port": 6002,
       "rep_port": 6102,
@@ -209,7 +209,7 @@ python server.py 5
     },
     {
       "id": 3,
-      "name": "MoMo-Gulu",
+      "name": "Gulu",
       "host": "10.29.42.146",
       "port": 6003,
       "rep_port": 6103,
@@ -217,7 +217,7 @@ python server.py 5
     },
     {
       "id": 4,
-      "name": "MoMo-Jinja",
+      "name": "Jinja",
       "host": "10.29.42.200",
       "port": 6004,
       "rep_port": 6104,
@@ -225,7 +225,7 @@ python server.py 5
     },
     {
       "id": 5,
-      "name": "MoMo-Mbale",
+      "name": "Mbale",
       "host": "10.29.42.201",
       "port": 6005,
       "rep_port": 6105,

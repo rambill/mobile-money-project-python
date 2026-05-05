@@ -133,8 +133,8 @@ python client.py
 ### Still seeing different balances?
 
 1. **Check server startup logs:**
-   - Should show: `[Server 1] Initializing MoMo-Kampala...`
-   - Should show: `[Server 2] Initializing MoMo-Mbarara...`
+   - Should show: `[Server 1] Initializing Kampala...`
+   - Should show: `[Server 2] Initializing Mbarara...`
 
 2. **Check network:**
    ```bash

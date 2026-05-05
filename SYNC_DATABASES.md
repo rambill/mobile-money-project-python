@@ -173,8 +173,8 @@ When replication is working, you'll see messages like:
 
 1. **Check if servers loaded the correct config:**
    - Look at server startup logs
-   - Should show: `[Server 1] Initializing MoMo-Kampala...`
-   - Should show: `[Server 2] Initializing MoMo-Mbarara...`
+   - Should show: `[Server 1] Initializing Kampala...`
+   - Should show: `[Server 2] Initializing Mbarara...`
 
 2. **Check network connectivity:**
    ```bash

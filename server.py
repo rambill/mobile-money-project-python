@@ -1107,6 +1107,38 @@ class MobileMoneyServer:
                     self.datastore.update_balance(from_phone, -amount, "TRANSFER_OUT", sender_vc)
                     self.datastore.update_balance(to_phone, amount, "TRANSFER_IN", recipient_vc)
                     print(f"[Server {self.server_id}] Replicated TRANSFER: {from_phone} -> {to_phone}, amount={amount}")
+            
+            elif command == "SYNC_ACCOUNT":
+                # Network sync operation - insert or update account
+                phone = operation.get("phone")
+                pin = operation.get("pin")
+                balance = operation.get("balance", 0.0)
+                vector_clock = operation.get("vector_clock", "{}")
+                physical_timestamp = operation.get("physical_timestamp", time.time())
+                last_modified_by = operation.get("last_modified_by", 0)
+                
+                # Check if account exists
+                existing = self.datastore.get_account(phone)
+                
+                with self.datastore.lock:
+                    if existing:
+                        # Update if newer
+                        existing_ts = existing.get("physical_timestamp", 0)
+                        if physical_timestamp >= existing_ts:
+                            self.datastore.conn.execute(
+                                "UPDATE accounts SET pin = ?, balance = ?, vector_clock = ?, physical_timestamp = ?, last_modified_by = ? WHERE phone = ?",
+                                (pin, balance, vector_clock, physical_timestamp, last_modified_by, phone)
+                            )
+                            self.datastore.conn.commit()
+                            print(f"[Server {self.server_id}] Network sync: Updated {phone} (balance={balance})")
+                    else:
+                        # Insert new account
+                        self.datastore.conn.execute(
+                            "INSERT INTO accounts (phone, pin, balance, vector_clock, physical_timestamp, last_modified_by) VALUES (?, ?, ?, ?, ?, ?)",
+                            (phone, pin, balance, vector_clock, physical_timestamp, last_modified_by)
+                        )
+                        self.datastore.conn.commit()
+                        print(f"[Server {self.server_id}] Network sync: Added {phone} (balance={balance})")
         
         except Exception as e:
             print(f"[Server {self.server_id}] Error applying replicated operation: {e}")

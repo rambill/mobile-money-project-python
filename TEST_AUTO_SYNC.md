@@ -191,7 +191,7 @@ Add Server 3 to `servers.json`:
   "servers": [
     {
       "id": 1,
-      "name": "MoMo-Kampala",
+      "name": "Kampala",
       "host": "10.29.42.224",
       "port": 6001,
       "rep_port": 6101,
@@ -199,7 +199,7 @@ Add Server 3 to `servers.json`:
     },
     {
       "id": 2,
-      "name": "MoMo-Mbarara",
+      "name": "Mbarara",
       "host": "10.29.42.65",
       "port": 6002,
       "rep_port": 6102,
@@ -207,7 +207,7 @@ Add Server 3 to `servers.json`:
     },
     {
       "id": 3,
-      "name": "MoMo-Gulu",
+      "name": "Gulu",
       "host": "10.29.42.146",
       "port": 6003,
       "rep_port": 6103,
@@ -226,7 +226,7 @@ SERVERS = [
     # ... Server 1 and 2 ...
     {
         "id": 3,
-        "name": "MoMo-Gulu",
+        "name": "Gulu",
         "region": "Northern Uganda",
         "host": "10.29.42.146",
         "port": 6003,

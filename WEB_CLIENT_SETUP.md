@@ -172,7 +172,7 @@ ifconfig
 │  [****              ]   │
 │                         │
 │  Server:                │
-│  [MoMo-Kampala ▼    ]   │
+│  [Kampala ▼    ]   │
 │                         │
 │  [     Login        ]   │
 │  [ Register Account ]   │
@@ -184,7 +184,7 @@ ifconfig
 ┌─────────────────────────┐
 │   💰 My Account         │
 │                         │
-│  Connected: MoMo-Kampala│
+│  Connected: Kampala│
 │  Phone: 0759016809      │
 │                         │
 │  ┌───────────────────┐  │

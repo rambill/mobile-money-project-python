@@ -48,9 +48,9 @@ A distributed mobile money service built on a peer-to-peer replica architecture 
 On different terminals, run each server with a unique ID:
 
 ```bash
-python server.py 1    # Terminal 1 — MoMo-Kampala  (127.0.0.1:6001)
-python server.py 2    # Terminal 2 — MoMo-Mbarara  (127.0.0.1:6002)
-python server.py 3    # Terminal 3 — MoMo-Gulu     (127.0.0.1:6003)
+python server.py 1    # Terminal 1 — Kampala  (127.0.0.1:6001)
+python server.py 2    # Terminal 2 — Mbarara  (127.0.0.1:6002)
+python server.py 3    # Terminal 3 — Gulu     (127.0.0.1:6003)
 ```
 
 Then in a 4th terminal, run the client:
@@ -68,9 +68,9 @@ For deployment across different machines with real IP addresses:
 ```json
 {
   "servers": [
-    {"id":1, "name":"MoMo-Server-1", "region":"DC-A", "host":"192.168.1.100", "port":6001, "rep_port":6101, "active":true},
-    {"id":2, "name":"MoMo-Server-2", "region":"DC-B", "host":"10.0.0.50", "port":6001, "rep_port":6101, "active":true},
-    {"id":3, "name":"MoMo-Server-3", "region":"DC-C", "host":"172.16.0.25", "port":6001, "rep_port":6101, "active":true}
+    {"id":1, "name":"Server-1", "region":"DC-A", "host":"192.168.1.100", "port":6001, "rep_port":6101, "active":true},
+    {"id":2, "name":"Server-2", "region":"DC-B", "host":"10.0.0.50", "port":6001, "rep_port":6101, "active":true},
+    {"id":3, "name":"Server-3", "region":"DC-C", "host":"172.16.0.25", "port":6001, "rep_port":6101, "active":true}
   ]
 }
 ```
@@ -209,7 +209,7 @@ WRITES_FOLLOW_READS         = True
    ```python
    {
        "id":       11,
-       "name":     "MoMo-Soroti",
+       "name":     "Soroti",
        "region":   "Eastern Uganda",
        "host":     "192.168.1.21",
        "port":     6011,

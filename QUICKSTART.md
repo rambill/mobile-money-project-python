@@ -1,314 +1,467 @@
-# Quick Start Guide - Mobile Money System
+# ⚡ Quick Start Guide - Distributed Mobile Money System
 
-Get up and running in 5 minutes!
+**Get up and running in 5 minutes!**
 
-## Prerequisites
+---
 
-- Python 3.8+ installed
-- Terminal/Command Prompt access
+## 🚀 Quick Setup
 
-## Step 1: Verify Python Installation
-
-```bash
-python --version
-# Should show Python 3.8 or higher
-```
-
-## Step 2: Start Servers
-
-### On Linux/macOS:
+### 1. Start Servers (Pick Your Servers)
 
 ```bash
-# Make scripts executable
-chmod +x start_servers.sh stop_servers.sh
-
-# Start all servers
-./start_servers.sh
-```
-
-### On Windows:
-
-```cmd
-start_servers.bat
-```
-
-### Or Start Manually:
-
-Open 3 separate terminals and run:
-
-**Terminal 1:**
-```bash
+# Start Server 1 (Kampala):
 python server.py 1
-```
 
-**Terminal 2:**
-```bash
+# Start Server 2 (Mbarara):
 python server.py 2
-```
 
-**Terminal 3:**
-```bash
+# Start Server 3 (Gulu):
 python server.py 3
+
+# ... or start all 10 servers
 ```
 
-You should see output like:
-```
-[Server 1] Initializing MoMo-Kampala...
-[Server 1] Starting on 127.0.0.1:6001...
-[Server 1] Starting election...
-[Server 1] Ready!
+### 2. Sync Data (After All Servers Started)
+
+```bash
+# If servers on SAME machine:
+python peer_sync.py
+
+# If servers on DIFFERENT machines:
+python network_sync.py
 ```
 
-## Step 3: Run Client
+### 3. Connect Client
 
-Open a new terminal:
+```bash
+# Terminal client:
+python client.py
+
+# Web interface (for mobile phones):
+python web_client.py
+# Then open http://<your-ip>:8000 on phone
+```
+
+**That's it! You're ready to go!** 🎉
+
+---
+
+## 📱 Client Options
+
+### Option 1: Terminal Client (PC)
 
 ```bash
 python client.py
+
+# Features:
+# - Register account
+# - Login
+# - Check balance
+# - Deposit money
+# - Withdraw money
+# - Transfer money
+# - Switch servers
 ```
 
-You'll see:
-```
-Discovering servers...
-Found 3 server(s):
-  1. MoMo-Kampala - 2.3ms
-  2. MoMo-Mbarara - 3.1ms
-  3. MoMo-Gulu - 2.8ms
-
-Connected to: MoMo-Kampala
-```
-
-## Step 4: Try It Out!
-
-### Register an Account
-
-```
-Select option: 1
-Enter phone number: 256700123456
-Enter 4-digit PIN: 1234
-
-✓ Account created successfully
-```
-
-### Deposit Money
-
-```
-Select option: 4
-Enter amount to deposit: 50000
-
-✓ Success
-  New balance: UGX 50,000.00
-```
-
-### Check Balance
-
-```
-Select option: 3
-
-✓ Balance: UGX 50,000.00
-```
-
-### Withdraw Money
-
-```
-Select option: 5
-Enter amount to withdraw: 10000
-
-✓ Success
-  New balance: UGX 40,000.00
-```
-
-## Step 5: Test Distributed Features
-
-### Test Replication
-
-1. Make a deposit on Server 1
-2. Switch to Server 2 (option 6)
-3. Check balance - should see the same amount!
-
-### Test Failover
-
-1. Stop one server (Ctrl+C in its terminal)
-2. Client will automatically switch to another server
-3. Continue using the system normally
-
-## Admin Tools
-
-### Check Server Status
+### Option 2: Mobile Phone (Termux - Android)
 
 ```bash
-python admin.py status
-```
-
-Output:
-```
-✓ Found 3 active server(s):
-
-  Server 1: MoMo-Kampala
-    Host: 127.0.0.1:6001
-    Load: 15 requests
-    Accounts: 5
-    Transactions: 12
-```
-
-### Check Consistency
-
-```bash
-python admin.py sync
-```
-
-Output:
-```
-✓ All 5 accounts are consistent across servers!
-```
-
-### Run Tests
-
-```bash
-python admin.py test
-```
-
-Output:
-```
-Test 1: Account Registration
-  ✓ Account 256700789012 registered successfully
-
-Test 2: Deposit Money
-  ✓ Deposited UGX 10,000
-
-Test 3: Read-Your-Writes (Different Server)
-  ✓ Balance replicated correctly to Server 2
-```
-
-## Stop Servers
-
-### Linux/macOS:
-
-```bash
-./stop_servers.sh
-```
-
-### Windows:
-
-Close the server windows or press Ctrl+C in each
-
-### Manual:
-
-Press Ctrl+C in each server terminal
-
-## Common Issues
-
-### "No servers found!"
-
-**Solution:** Make sure servers are running. Check with:
-```bash
-ps aux | grep server.py    # Linux/macOS
-tasklist | findstr python  # Windows
-```
-
-### "Address already in use"
-
-**Solution:** A server is already running on that port. Stop it first:
-```bash
-./stop_servers.sh
-```
-
-### Import errors
-
-**Solution:** Make sure all files are in the same directory:
-```bash
-ls *.py
-# Should show: server.py, client.py, admin.py, config.py, distributed.py
-```
-
-## Next Steps
-
-- Read [README.md](README.md) for detailed architecture
-- Check [DEPLOYMENT.md](DEPLOYMENT.md) for network deployment
-- Explore the code to understand distributed algorithms
-- Try adding more servers (edit `servers.json`)
-
-## Architecture Overview
-
-```
-┌─────────────┐         ┌─────────────┐         ┌─────────────┐
-│  Server 1   │◄───────►│  Server 2   │◄───────►│  Server 3   │
-│  (Kampala)  │         │  (Mbarara)  │         │   (Gulu)    │
-└──────▲──────┘         └──────▲──────┘         └──────▲──────┘
-       │                       │                        │
-       │         ┌─────────────┴────────────┐          │
-       │         │                          │          │
-       └─────────┤         Client           ├──────────┘
-                 │  (Auto-discovers &       │
-                 │   connects to nearest)   │
-                 └──────────────────────────┘
-```
-
-## Key Features You're Using
-
-✓ **Peer-to-peer replication** - All servers have full data  
-✓ **Automatic failover** - Client switches if server fails  
-✓ **Vector clocks** - Tracks causality of operations  
-✓ **2-Phase Commit** - Ensures atomic replication  
-✓ **Bully Election** - Elects coordinator automatically  
-✓ **Berkeley Clock Sync** - Synchronizes server clocks  
-✓ **Anti-entropy** - Gossip protocol fixes inconsistencies  
-✓ **Client-centric consistency** - Read-your-writes, monotonic reads/writes  
-
-## Example Session
-
-```bash
-# Terminal 1: Start servers
-./start_servers.sh
-
-# Terminal 2: Run client
+# On Android phone:
+# 1. Install Termux from Play Store
+# 2. In Termux:
+pkg install python
+# 3. Copy files to phone
+# 4. Run:
 python client.py
-
-# In client:
-1. Register new account
-   Phone: 256700111222
-   PIN: 1234
-
-4. Deposit money
-   Amount: 100000
-
-3. Check balance
-   ✓ Balance: UGX 100,000.00
-
-6. Switch server
-   Select: 2 (MoMo-Mbarara)
-
-3. Check balance again
-   ✓ Balance: UGX 100,000.00  # Same data!
-
-5. Withdraw money
-   Amount: 25000
-   ✓ New balance: UGX 75,000.00
-
-# Terminal 3: Check consistency
-python admin.py sync
-# ✓ All accounts are consistent across servers!
 ```
 
-## Troubleshooting Commands
+### Option 3: Web Interface (Any Phone)
 
 ```bash
-# Check if servers are running
-python admin.py status
+# On PC:
+pip install flask
+python web_client.py
 
-# Test the system
-python admin.py test
-
-# Check replication
-python admin.py sync
-
-# View database
-sqlite3 data/server_1.db "SELECT * FROM accounts;"
-
-# Check logs (if redirected)
-tail -f logs/server1.log
+# On phone browser:
+# Open: http://<your-pc-ip>:8000
 ```
 
 ---
 
-**Congratulations!** You now have a fully functional distributed mobile money system running. Explore the code to learn about distributed systems concepts in action!
+## 🎯 Common Tasks
+
+### Register New Account
+
+```bash
+# 1. Start client:
+python client.py
+
+# 2. Choose option 1 (Register)
+# 3. Enter phone number: 0759016809
+# 4. Enter PIN: 1234
+# 5. Confirm PIN: 1234
+# 6. Done! Account created
+```
+
+### Check Balance
+
+```bash
+# 1. Login (option 2)
+# 2. Choose option 3 (Check Balance)
+# 3. See your balance
+```
+
+### Deposit Money
+
+```bash
+# 1. Login
+# 2. Choose option 4 (Deposit)
+# 3. Enter amount: 50000
+# 4. Done! Money deposited
+```
+
+### Transfer Money
+
+```bash
+# 1. Login
+# 2. Choose option 6 (Transfer)
+# 3. Enter recipient phone: 0759882820
+# 4. Enter amount: 10000
+# 5. Done! Money transferred
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### "No servers found"
+
+**Solution:**
+```bash
+# 1. Check servers are running:
+# Look for "Ready!" message
+
+# 2. Check firewall:
+# Windows: Allow UDP ports 6001-6010, 6101-6110, 5999
+
+# 3. Check network:
+# Make sure client and servers on same network
+```
+
+### "Invalid PIN"
+
+**Solution:**
+```bash
+# Sync databases:
+python peer_sync.py
+
+# This ensures all servers have all accounts
+```
+
+### "Servers have different data"
+
+**Solution:**
+```bash
+# 1. Check differences:
+python compare_databases.py
+
+# 2. Sync all servers:
+# If same machine:
+python peer_sync.py
+
+# If different machines (servers must be running):
+python network_sync.py
+
+# 3. Verify sync worked:
+python compare_databases.py
+```
+
+---
+
+## 📊 Server Management
+
+### Start All Servers (Windows)
+
+Create `start_all.bat`:
+```batch
+@echo off
+start "Kampala" python server.py 1
+start "Mbarara" python server.py 2
+start "Gulu" python server.py 3
+start "Kasese" python server.py 4
+start "Kabale" python server.py 5
+start "Mbale" python server.py 6
+start "Jinja" python server.py 7
+start "Rukungiri" python server.py 8
+start "Fort Portal" python server.py 9
+start "Arua" python server.py 10
+```
+
+Then run:
+```bash
+start_all.bat
+```
+
+### Stop All Servers
+
+Press `Ctrl+C` in each server window
+
+### Check Server Status
+
+```bash
+# In client:
+python client.py
+# Choose option 8 (Show server status)
+```
+
+---
+
+## 🌐 Network Setup
+
+### Firewall Rules (Windows)
+
+```powershell
+# Allow RPC ports (6001-6010):
+New-NetFirewallRule -DisplayName "Mobile Money RPC" -Direction Inbound -Protocol UDP -LocalPort 6001-6010 -Action Allow
+
+# Allow replication ports (6101-6110):
+New-NetFirewallRule -DisplayName "Mobile Money Replication" -Direction Inbound -Protocol UDP -LocalPort 6101-6110 -Action Allow
+
+# Allow discovery port (5999):
+New-NetFirewallRule -DisplayName "Mobile Money Discovery" -Direction Inbound -Protocol UDP -LocalPort 5999 -Action Allow
+```
+
+### Find Your IP Address
+
+```bash
+# Windows:
+ipconfig
+
+# Linux/Mac:
+ifconfig
+
+# Look for IPv4 address (e.g., 10.29.42.224)
+```
+
+---
+
+## 📁 File Structure
+
+```
+mobile-money/
+├── server.py              # Main server
+├── client.py              # Terminal client
+├── web_client.py          # Web interface
+├── config.py              # Configuration
+├── distributed.py         # Distributed algorithms
+├── servers.json           # Server list
+├── mobile.sql             # Database schema
+├── peer_sync.py           # Sync tool
+├── compare_databases.py   # Compare tool
+├── data/                  # Databases
+│   ├── server_1.db
+│   ├── server_2.db
+│   └── ...
+└── templates/             # Web templates
+    └── mobile.html
+```
+
+---
+
+## 🎓 Key Concepts
+
+### Peer-to-Peer
+- All servers are equal (no master)
+- Each server replicates to all others
+- Any server can fail without affecting system
+
+### Eventual Consistency
+- Changes replicate asynchronously
+- All servers eventually have same data
+- Use `peer_sync.py` to force sync
+
+### Vector Clocks
+- Track causality of updates
+- Detect concurrent updates
+- Enable conflict resolution
+
+### Last-Writer-Wins
+- When conflict detected, newest update wins
+- Based on physical timestamp
+- Simple and effective
+
+---
+
+## 📞 Quick Commands
+
+```bash
+# Start server:
+python server.py <id>
+
+# Start client:
+python client.py
+
+# Sync databases (same machine):
+python peer_sync.py
+
+# Sync databases (different machines):
+python network_sync.py
+
+# Compare databases:
+python compare_databases.py
+
+# Web interface:
+python web_client.py
+```
+
+---
+
+## 🎯 Typical Workflow
+
+### First Time Setup
+
+```bash
+# 1. Start servers:
+python server.py 1
+python server.py 2
+python server.py 3
+
+# 2. Wait 10 seconds for servers to initialize
+
+# 3. Sync data:
+python peer_sync.py
+
+# 4. Connect client:
+python client.py
+
+# 5. Register account and start using!
+```
+
+### Daily Use
+
+```bash
+# 1. Start servers (if not running):
+python server.py 1
+python server.py 2
+python server.py 3
+
+# 2. Connect client:
+python client.py
+
+# 3. Use mobile money!
+```
+
+### Adding New Server
+
+```bash
+# 1. Update servers.json:
+# Add new server entry
+
+# 2. Update config.py:
+# Add new server to SERVERS list
+
+# 3. Start new server:
+python server.py <new_id>
+
+# 4. Sync data:
+python peer_sync.py
+
+# 5. Done! New server has all data
+```
+
+---
+
+## 💡 Tips & Tricks
+
+### Tip 1: Always Sync After Changes
+```bash
+# After adding accounts on one server:
+python peer_sync.py
+# Ensures all servers have the account
+```
+
+### Tip 2: Check Differences Regularly
+```bash
+# See if servers are in sync:
+python compare_databases.py
+```
+
+### Tip 3: Use Web Interface for Mobile
+```bash
+# Easier than Termux:
+python web_client.py
+# Access from any phone browser
+```
+
+### Tip 4: Start Servers in Order
+```bash
+# Start Server 1 first, then others:
+python server.py 1  # Wait 5 seconds
+python server.py 2  # Wait 5 seconds
+python server.py 3  # Wait 5 seconds
+# Then sync:
+python peer_sync.py
+```
+
+### Tip 5: Keep Servers Running
+```bash
+# Servers should run continuously
+# Don't restart unless necessary
+# If restart needed, sync after:
+python peer_sync.py
+```
+
+---
+
+## 🔍 Verification
+
+### Check Everything Works
+
+```bash
+# 1. Start 2 servers:
+python server.py 1
+python server.py 2
+
+# 2. Sync:
+python peer_sync.py
+
+# 3. Register account on Server 1:
+python client.py
+# Register: 0759016809, PIN: 1234
+
+# 4. Switch to Server 2:
+# Option 7 (Switch server)
+# Choose Server 2
+
+# 5. Login with same account:
+# Option 2 (Login)
+# Phone: 0759016809, PIN: 1234
+
+# 6. If login works, system is working! ✅
+```
+
+---
+
+## 📚 More Information
+
+- **`PROJECT_STATUS.md`** - Current system status
+- **`ALL_SERVERS.md`** - All 10 servers documentation
+- **`ARCHITECTURE.md`** - System architecture
+- **`MOBILE_CLIENT_SETUP.md`** - Mobile phone setup
+- **`WEB_CLIENT_SETUP.md`** - Web interface setup
+
+---
+
+## 🎉 You're Ready!
+
+**Quick recap:**
+1. Start servers: `python server.py 1`
+2. Sync data: `python peer_sync.py`
+3. Connect client: `python client.py`
+4. Use mobile money! 💰
+
+**Need help?** Check the documentation files above!
+
+---
+
+**Happy banking!** 🏦✨

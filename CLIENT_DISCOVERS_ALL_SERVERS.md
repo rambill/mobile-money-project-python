@@ -58,13 +58,13 @@ python client.py
 
 # You should see:
 # Discovering servers...
-#   Found Server 3 via config: MoMo-Gulu
+#   Found Server 3 via config: Gulu
 # Found 3 server(s):
-#   1. MoMo-Kampala - 0.5ms
-#   2. MoMo-Mbarara - 1.2ms
-#   3. MoMo-Gulu - 2.3ms
+#   1. Kampala - 0.5ms
+#   2. Mbarara - 1.2ms
+#   3. Gulu - 2.3ms
 # 
-# Connected to: MoMo-Kampala
+# Connected to: Kampala
 ```
 
 **Server 3 should now appear!** ✅
@@ -105,7 +105,7 @@ for server in servers.json:
 ```python
 {
     "id": 3,
-    "name": "MoMo-Gulu",
+    "name": "Gulu",
     "host": "10.29.42.17",
     "port": 6003,
     "rep_port": 6103,
@@ -245,7 +245,7 @@ Client has all servers
   "servers": [
     {
       "id": 1,
-      "name": "MoMo-Kampala",
+      "name": "Kampala",
       "host": "10.29.42.224",
       "port": 6001,
       "rep_port": 6101,
@@ -253,7 +253,7 @@ Client has all servers
     },
     {
       "id": 2,
-      "name": "MoMo-Mbarara",
+      "name": "Mbarara",
       "host": "10.29.42.65",
       "port": 6002,
       "rep_port": 6102,
@@ -261,7 +261,7 @@ Client has all servers
     },
     {
       "id": 3,
-      "name": "MoMo-Gulu",
+      "name": "Gulu",
       "host": "10.29.42.17",
       "port": 6003,
       "rep_port": 6103,
@@ -283,7 +283,7 @@ Client has all servers
 ```json
 {
   "id": 4,
-  "name": "MoMo-Jinja",
+  "name": "Jinja",
   "host": "10.29.42.200",
   "port": 6004,
   "rep_port": 6104,

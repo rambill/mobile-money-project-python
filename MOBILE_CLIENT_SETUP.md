@@ -57,7 +57,7 @@ cd /storage/emulated/0/Download
 # Or wherever you saved the files
 
 # 3. Copy to Termux home:
-cp client.py config.py distributed.py servers.json ~/
+cp client.py config.py distri buted.py servers.json ~/
 cd ~
 ```
 
